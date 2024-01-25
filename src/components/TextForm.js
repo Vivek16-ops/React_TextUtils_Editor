@@ -9,21 +9,21 @@ export default function TextForm(props) {
         console.log("UpperCase Function Invoked User Entered: " + text)
         // let newText = text.toUpperCase();
         setText(text.toUpperCase())
-        props.showAlert("Text Converted Into Upper Case","success")
+        props.showAlert("Text Converted Into Upper Case", "success")
     }
-    
+
     let changetoLower = () => {
         console.log("LowerCase Function invoked User Entered: " + text)
         setText(text.toLowerCase())
-        props.showAlert("Text Converted Into Lower Case","success")
+        props.showAlert("Text Converted Into Lower Case", "success")
     }
-    
+
     let clearText = () => {
         console.log("Clear Function Invoked");
         setText("");
-        props.showAlert("All text has been cleared","danger")
+        props.showAlert("All text has been cleared", "danger")
     }
-    
+
     let reverseWord = () => {
         console.log("Reverse Function Initiated")
         let newText = text.split(" ");
@@ -32,7 +32,7 @@ export default function TextForm(props) {
             modifiedSentence = modifiedSentence + newText[i] + " ";
         }
         setText(modifiedSentence)
-        props.showAlert("Your Sentence has been revered","warning")
+        props.showAlert("Your Sentence has been revered", "warning")
     }
 
     let copyText = () => {
@@ -40,8 +40,13 @@ export default function TextForm(props) {
         let ToCopyText = document.getElementById("myBox")
         ToCopyText.select();
         navigator.clipboard.writeText(ToCopyText.value)
-        props.showAlert("Congrats text has been copied","success")
+        props.showAlert("Congrats text has been copied", "success")
+    }
 
+    let RemoveSpaces = ()=>{
+        let newText = text.split(/[ ]+/)
+        setText(newText.join(" "))
+        props.showAlert("Extra Spaces has been removed sucessfully","success")
     }
 
     let changeHandler = (event) => {
@@ -55,24 +60,25 @@ export default function TextForm(props) {
             <div className='container my-3' style={{ color: props.mode === "dark" ? "white" : "black" }}>
                 <h1 className='text-center text-bold text-decoration-underline'>{props.title}</h1>
                 <div className="mb-3">
-                    <textarea className="form-control text-bold py-2 px-3" value={text} onChange={changeHandler} id="myBox" rows="12" style={{ backgroundColor: props.mode === "dark" ? "gray" : "white", color:props.mode === "dark" ? "white" : "black" }}></textarea>
+                    <textarea className="form-control text-bold py-2 px-3" value={text} onChange={changeHandler} id="myBox" rows="12" style={{ backgroundColor: props.mode === "dark" ? "gray" : "white", color: props.mode === "dark" ? "white" : "black" }}></textarea>
                 </div>
-                <div className="buttons d-flex gap-2">
-                    <button onClick={changetoUpper} className="btn btn-success">UpperCase</button>
-                    <button onClick={changetoLower} className="btn btn-primary">LowerCase</button>
-                    <button onClick={reverseWord} className='btn btn-warning'>Reverse</button>
-                    <button onClick={copyText} className='btn btn-info'>CopyToClipBoard</button>
-                    <button onClick={clearText} className='btn btn-danger'>Clear</button>
+                <div className="buttons">
+                    <button disabled={text.length===0} onClick={changetoUpper} className="btn m-2 btn-success">UpperCase</button>
+                    <button disabled={text.length===0} onClick={changetoLower} className="btn m-2 btn-primary">LowerCase</button>
+                    <button disabled={text.length===0} onClick={reverseWord} className='btn m-2 btn-warning'>Reverse</button>
+                    <button disabled={text.length===0} onClick={copyText} className='btn m-2 btn-info'>CopyToClipBoard</button>
+                    <button disabled={text.length===0} onClick={RemoveSpaces} className='btn m-2 btn-secondary'>RemoveExtraSpaces</button>
+                    <button disabled={text.length===0} onClick={clearText} className='btn m-2 btn-danger'>Clear</button>
                 </div>
             </div>
 
             {/* Adding Some More logics also this is style of commenting in react js */}
-            <div className="container my-3" style={{color:props.mode==="dark"?"white":"black"}}>
+            <div className="container my-3" style={{ color: props.mode === "dark" ? "white" : "black" }}>
                 <h2>Text Summary</h2>
-                <p>{text.split(" ").length - 1} words and {text.length} character</p>
-                <p>{0.008 * text.split(" ").length} minutes read</p>
+                <p>{text.split(/\s+/).filter((element)=>{return element.length!==0}).length} words and {text.length} character</p>
+                <p>{0.008 * text.split(" ").filter((element)=>{return element.length!==0}).length} minutes read</p>
                 <h2>Preview</h2>
-                <p>{text.length>0?text:"Enter the text in above box for previews"}</p>
+                <p>{text.length > 0 ? text : "No Text To Preview"}</p>
             </div>
         </>
     )

@@ -48,9 +48,9 @@ function App() {
         <Alert alert={alert} />
 
         {/* Using Router to dynamically change the content without refreshing and here we need to use link insteat of anchor tag and href  */}
-        <Routes>
-          <Route path="/" element={<TextForm title="Enter the text below to analyze" mode={mode} showAlert={showAlert} />} />
-          <Route path="/about" element={<About2 mode={mode} />} />
+        <Routes> */
+          <Route exact path="/" element={<TextForm title="Try TextUtils - Word Counter | Character Counter | Reverse word & Sentences" mode={mode} showAlert={showAlert} />} />
+          <Route exact path="/about" element={<About2 mode={mode} />} />
         </Routes>
       </Router>
     </>
