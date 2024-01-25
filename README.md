@@ -1,6 +1,3 @@
-# Getting Started with React TextUtils System
-
-
 # Getting Started with React TextUtils TextEditor
 
 # Description: 
