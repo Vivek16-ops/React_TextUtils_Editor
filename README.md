@@ -1,4 +1,13 @@
-# Getting Started with Create React App
+# Getting Started with React TextUtils System
+
+
+# Getting Started with React TextUtils TextEditor
+
+# Description: 
+Text Editor with multiple functionalities like dark mode, Upper to Lower conversion, Copy to clipboard, Reverse word and Paragraph Summary Indicator, etc with React framework
+
+# Note
+Here I have used routers to navigate within different React DOMs..However, because GitHub cannot support or handle routers. I temporarily removed it from Github page hosting .. Follow below mentioned steps to use its complete functionality
 
 ## Available Scripts
 
