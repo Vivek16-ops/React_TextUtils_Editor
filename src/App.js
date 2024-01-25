@@ -1,24 +1,59 @@
-import logo from './logo.svg';
 import './App.css';
+import Navbar from './components/Navbar';
+import TextForm from './components/TextForm';
+import React, { useState } from 'react';
+import About2 from './components/About2';
+import Alert from './components/Alert';
+import {
+  BrowserRouter as Router,
+  Route,
+  Routes,
+} from "react-router-dom";
+
 
 function App() {
+  const [mode, setMode] = useState("light")
+  const [alert, setAlert] = useState(null);
+
+  const showAlert = (message, type) => {
+    setAlert({
+      msg: message,
+      type: type
+    })
+
+    setTimeout(() => {
+      setAlert(null)
+    }, 1500)
+  }
+
+  let toggleMode = () => {
+    if (mode === "light") {
+      setMode("dark");
+      document.body.style.backgroundColor = "#474747";
+      showAlert("Dark Mode Has Been Enabled", "success")
+    } else {
+      setMode("light");
+      document.body.style.backgroundColor = "white";
+      showAlert("Dark Mode is disabled", "warning")
+    }
+  }
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <>
+      <Router>
+        { /* Navbar Section Importing */}
+        {/* props means :- Sending the piece of data to the componennts from the calling place  */}
+        <Navbar title="TextUtils" about="About Us" mode={mode} toggleMode={toggleMode} />
+
+        {/* Setting Alerts  */}
+        <Alert alert={alert} />
+
+        {/* Using Router to dynamically change the content without refreshing and here we need to use link insteat of anchor tag and href  */}
+        <Routes>
+          <Route path="/" element={<TextForm title="Enter the text below to analyze" mode={mode} showAlert={showAlert} />} />
+          <Route path="/about" element={<About2 mode={mode} />} />
+        </Routes>
+      </Router>
+    </>
   );
 }
 
